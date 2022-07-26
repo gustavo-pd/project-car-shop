@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import MotorcycleService from '../../../services/MotorcycleService';
 import MotorcycleController from '../../../controllers/MotorcycleController';
 import { motorcycleMock } from '../mocks/MotorcycleMock';
+import { motorcyclesMock } from '../mocks/MotorcyclesMock'
 
 describe('Testa o funcionamento da camada controller para rota /motorcycles', () => {
 
@@ -31,24 +32,25 @@ describe('Testa o funcionamento da camada controller para rota /motorcycles', ()
     })
   })
 
-  // describe('GET /motorcycles', () => {
-  //   before(() => {
-  //     res.status = sinon.stub().returns(res);
-  //     res.json = sinon.stub().returns(res);
-  //     req.body = [motorcycleMock];
-  //     sinon.stub(MotorcycleService, 'getAll').resolves([]);
-  //   })
+  describe('GET /motorcycles', () => {
+    before(() => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+      req.body = motorcyclesMock;
+      sinon.stub(MotorcycleService, 'getAll').resolves();
+    })
 
-  //   after(() => {
-  //     (MotorcycleService.getAll as SinonStub).restore();
-  //   })
+    after(() => {
+      (MotorcycleService.getAll as SinonStub).restore();
+    })
 
-  //   it('Ocorre com sucesso', async () => {
-  //     const read = await MotorcycleController.getAll(req, res);
+    it('Ocorre com sucesso', async () => {
+      const read = await MotorcycleController.getAll(req, res);
 
-  //     expect(read).to.be.deep.equal([]);
-  //   })
-  // })
+      expect((res.status as sinon.SinonStub).calledWith(200));
+      expect((res.json as sinon.SinonStub).calledWith([motorcycleMock]));
+    })
+  })
 
   describe('GET /motorcycles/:id', () => {
 

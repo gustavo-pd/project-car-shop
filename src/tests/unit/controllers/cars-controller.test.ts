@@ -31,24 +31,26 @@ describe('Testa o funcionamento da camada controller para rota /cars', () => {
     });
   });
 
-  // describe('GET /cars', () => {
-  //   before(() => {
-  //     res.status = sinon.stub().returns(res);
-  //     res.json = sinon.stub().returns(res);
-  //     req.body = [carMock];
-  //     sinon.stub(CarService, 'getAll').resolves([]);
-  //   })
+  describe('GET /cars/:id', () => {
 
-  //   after(() => {
-  //     (CarService.getAll as SinonStub).restore();
-  //   })
+    before(() => {
+      req.params = { id: '4edd40c86762e0fb12000003' } as any;
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+      req.body = carMock;
+      sinon.stub(CarService, 'getById').resolves();
+    })
 
-  //   it('Ocorre com sucesso', async () => {
-  //     const read = await CarController.getAll(req, res);
+    after(() => {
+      (CarService.getById as SinonStub).restore();
+    })
+    it('Ocorre sucesso', async () => {
+      await CarController.getById(req, res);
 
-  //     expect(read).to.be.deep.equal([]);
-  //   });
-  // });
+      expect((res.status as sinon.SinonStub).calledWith(200));
+      expect((res.json as sinon.SinonStub).calledWith(carMock));
+    })
+  })
 
   describe('GET /cars/:id', () => {
 

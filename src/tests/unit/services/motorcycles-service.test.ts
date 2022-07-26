@@ -57,11 +57,11 @@ describe('Testa o funcionamento da camada service para rota /motorcycles', () =>
   // describe('PUT /motorcycles/:id', () => {
 
   //   before(() => {
-  //     sinon.stub(Model, 'findOneAndUpdate').resolves(motorcycleMock);
+  //     sinon.stub(Model, 'findOneAndUpdate').resolves();
   //   })
 
   //   after(() => {
-  //     (Model.findOneAndUpdate as SinonStub).restore();
+  //     sinon.restore();
   //   })
   //   it('Ocorre com sucesso', async () => {
   //     const update = await MotorcycleService.update('4edd40c86762e0fb12000003', motorcycleMock);
@@ -69,17 +69,19 @@ describe('Testa o funcionamento da camada service para rota /motorcycles', () =>
   //   })
   // })
 
-  // describe('DELETE /motorcycles/:id', () => {
-  //   before(() => {
-  //     sinon.stub(Model, 'findOneAndDelete').resolves(motorcycleMock);
-  //   })
+  describe('DELETE /motorcycles/:id', () => {
+    before(() => {
+      sinon.stub(Model, 'findById').resolves(motorcycleMock);
+      sinon.stub(Model, 'findOneAndDelete').resolves(motorcycleMock);
+    })
 
-  //   after(() => {
-  //     (Model.findOneAndDelete as SinonStub).restore();
-  //   })
-  //   it('Ocorre com sucesso', async () => {
-  //     const deleteCar = await MotorcycleService.delete('4edd40c86762e0fb12000003');
-  //     expect(deleteCar).to.be.equal(motorcycleMock);
-  //   })
-  // })
+    after(() => {
+      (Model.findById as SinonStub).restore();
+      (Model.findOneAndDelete as SinonStub).restore();
+    })
+    it('Ocorre com sucesso', async () => {
+      const deleteCar = await MotorcycleService.delete('4edd40c86762e0fb12000003');
+      expect(deleteCar).to.be.equal(motorcycleMock);
+    })
+  })
 });

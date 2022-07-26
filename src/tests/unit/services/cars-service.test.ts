@@ -69,17 +69,19 @@ describe('Testa o funcionamento da camada service para rota /cars', () => {
   //   })
   // })
 
-  // describe('DELETE /cars/:id', () => {
-  //   before(() => {
-  //     sinon.stub(Model, 'findOneAndDelete').resolves(carMock);
-  //   })
+  describe('DELETE /cars/:id', () => {
+    before(() => {
+      sinon.stub(Model, 'findById').resolves(carMock);
+      sinon.stub(Model, 'findByIdAndDelete').resolves(carMock);
+    })
 
-  //   after(() => {
-  //     (Model.findOneAndDelete as SinonStub).restore();
-  //   })
-  //   it('Ocorre com sucesso', async () => {
-  //     const deleteCar = await CarService.delete('4edd40c86762e0fb12000003');
-  //     expect(deleteCar).to.be.equal(carMock);
-  //   })
-  // })
+    after(() => {
+      (Model.findById as SinonStub).restore();
+      (Model.findByIdAndDelete as SinonStub).restore();
+    })
+    it('Ocorre com sucesso', async () => {
+      const deleteCar = await CarService.delete('4edd40c86762e0fb12000003');
+      expect(deleteCar).to.be.equal(carMock);
+    })
+  })
 });
