@@ -1,28 +1,41 @@
-import { ICar } from '../interfaces';
-import MongoService, { ServiceError } from './MongoService';
-import { CarModel } from '../models';
-import { CarSchema } from '../interfaces/CarInterface';
+import 
+{ Car, CarSchema } from '../interfaces/CarInterface';
+import CarModel from '../models/CarModel';
 
-export default class CarService extends MongoService<ICar> {
-  constructor(protected model = new CarModel()) {
-    super(model);
-  }
+const message = 'Object not found';
 
-  create = async (car: ICar)
-  : Promise<ICar | ServiceError | null> => {
-    const parsed = CarSchema.safeParse(car);
-    if (!parsed.success) {
-      return { error: parsed.error };
+const CarService = {
+  getAll: async () => CarModel.find(),
+
+  async getById(id: string) {
+    const find = await CarModel.findById(id);
+    if (!find) {
+      throw new Error(message);
     }
-    return this.model.create(car);
-  };
+    return find;
+  },
 
-  update = async (id: string, car: ICar): 
-  Promise<ICar | ServiceError | null> => {
-    const parsed = CarSchema.safeParse(car);
-    if (!parsed.success) {
-      return { error: parsed.error };
+  async create(obj: Car) {
+    CarSchema.parse(obj);
+    return CarModel.create(obj);
+  },
+
+  async update(id: string, obj: Car) {
+    const find = await CarModel.findById(id);
+    if (!find) {
+      throw new Error(message);
     }
-    return this.model.update(id, car);
-  };
-}
+    CarSchema.parse(obj);
+    return CarModel.findByIdAndUpdate(id, obj, { new: true });
+  },
+
+  async delete(id: string) {
+    const find = await CarModel.findById(id);
+    if (!find) {
+      throw new Error(message);
+    }
+    return CarModel.findByIdAndDelete(id);
+  },
+};
+
+export default CarService;

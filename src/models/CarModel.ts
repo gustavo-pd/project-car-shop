@@ -1,21 +1,16 @@
-import { Schema, model as mngModel, Document } from 'mongoose';
-import Model from './MongoModel';
-import { ICar } from '../interfaces';
+import { Schema, model } from 'mongoose';
+import { Car } from '../interfaces/CarInterface';
 
-interface CarDocument extends ICar, Document { }
-
-export const carSchema = new Schema<CarDocument>({
-  model: String,
-  year: Number,
-  color: String,
-  status: Boolean,
-  buyValue: Number,
-  doorsQty: Number,
-  seatsQty: Number,
+const CarSchema = new Schema<Car>({
+  model: { type: String, required: true },
+  year: { type: Number, required: true },
+  color: { type: String, required: true },
+  status: { type: String },
+  buyValue: { type: Number, required: true },
+  doorsQty: { type: Number, required: true },
+  seatsQty: { type: Number, required: true },
 }, { versionKey: false });
 
-export default class CarModel extends Model<ICar> {
-  constructor(model = mngModel('Cars', carSchema)) {
-    super(model);
-  }
-}
+const CarModel = model<Car>('Car', CarSchema);
+
+export default CarModel;

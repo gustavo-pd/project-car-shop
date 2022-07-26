@@ -10,7 +10,7 @@
 
 // const { expect } = chai;
 
-// describe.skip('Sua descrição', () => {
+// describe('Sua descrição', () => {
 
 //   before(async () => {
 //     sinon

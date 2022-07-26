@@ -6,6 +6,37 @@ import MotorcycleService from '../services/MotorcycleService';
 const message = 'Id must have 24 hexadecimal characters';
 
 const MotorcycleController = {
+  async getAll(req: Request, res: Response) {
+    try {
+      const response = await MotorcycleService.getAll();
+      res.status(200).json(response);
+    } catch (error) {
+      return res.status(500).json(
+        { error: 'Internal server error' },
+      );
+    }
+  },
+
+  async getById(req: Request, res: Response) {
+    const { id } = req.params;
+
+    if (id.length !== 24) {
+      return res
+        .status(400).json(
+          { error: message },
+        );
+    }
+
+    try {
+      const response = await MotorcycleService.getById(id);
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(404).json(
+        { error: (error as Error).message },
+      );
+    }
+  },
+
   async create(req: Request, res: Response) {
     const info = req.body;
 
@@ -68,38 +99,6 @@ const MotorcycleController = {
       );
     }
   },
-  
-  async getAll(req: Request, res: Response) {
-    try {
-      const response = await MotorcycleService.getAll();
-      res.status(200).json(response);
-    } catch (error) {
-      return res.status(500).json(
-        { error: 'Internal server error' },
-      );
-    }
-  },
-
-  async getById(req: Request, res: Response) {
-    const { id } = req.params;
-
-    if (id.length !== 24) {
-      return res
-        .status(400).json(
-          { error: message },
-        );
-    }
-
-    try {
-      const response = await MotorcycleService.getById(id);
-      return res.status(200).json(response);
-    } catch (error) {
-      return res.status(404).json(
-        { error: (error as Error).message },
-      );
-    }
-  },
-
 };
 
 export default MotorcycleController;
