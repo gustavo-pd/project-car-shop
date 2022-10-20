@@ -16,13 +16,14 @@
 
 <ul>
   <li>Typescript</li>
+  <li>NodeJS</li>
   <li>POO</li>
   <li>MongoDB</li>
 </ul>
 
 <h2 id="development">Desenvolvimento</h2>
 
-<p>Neste projeto pude arquitetar e desenvolver uma API de um CRUD (seguindo os princípios REST), para o banco de dados utilizei MongoDB, após isso o Back-end foi feito utilizando Typescript e Programação Orientada a Objetos. </p>
+<p>Neste projeto pude arquitetar e desenvolver uma API de um CRUD (seguindo os princípios REST), para o banco de dados utilizei MongoDB, após isso o Back-end foi feito utilizando Node, Typescript e Programação Orientada a Objetos. </p>
 
 <h2 id="howtouse">Como executar o projeto</h2>
 
@@ -40,21 +41,9 @@
     * `npm install`
 </br>
 
-  3. Configure as variáveis de ambiente:
+  3. Inicie a aplicação, ela rodará na porta 3001:
     </br>
-    * Crie o arquivo .env na raiz do projeto e crie as variáveis de ambiente utilizando seu user e password do Mysql.
-</br>
-
-  4. Utilize os seguintes comandos para iniciar o banco de dados, criar as tabelas e populá-las:
+    * `npm run dev`
     </br>
-    * `npm run prestart`
-    </br>
-    * `npm run seed`
-</br>
-
-  5. Inicie a aplicação, ela rodará na porta 3000:
-    </br>
-    * `npm run start`
-    </br>
-    * `http://localhost:3000`
+    * `http://localhost:3001`
 </br>
