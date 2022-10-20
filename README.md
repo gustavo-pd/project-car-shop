@@ -16,7 +16,6 @@
 
 <ul>
   <li>Typescript</li>
-  <li>NodeJS</li>
   <li>POO</li>
   <li>MongoDB</li>
 </ul>
